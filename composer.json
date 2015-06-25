@@ -1,0 +1,21 @@
+{
+    "name" : "CodeReviewPrototype",
+    "description" : "Program to code review git branches",
+    "minimum-stability" : "dev",
+    "license" : "proprietary",
+    "authors" : [
+        {
+            "name" : "Darren Eidson",
+            "email" : "pcpopper@hotmail.com"
+        }
+    ],
+    "require" : {
+        "php" : ">=5.5",
+        "zendframework/zend-servicemanager": "~2.4"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "CodeReviewPrototype\\" : "./"
+        }
+    }
+}
