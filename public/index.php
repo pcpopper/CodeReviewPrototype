@@ -1,9 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include '../vendor/autoload.php';
 
-//Use CodeReviewPrototype\App;
+Use CodeReviewPrototype\App\CodeReviewPrototype;
 
-$codeReviewPrototype = new \CodeReviewPrototype\App\CodeReviewPrototype();
+$codeReviewPrototype = new CodeReviewPrototype();
 
 if (isset($_POST['branch'])) {
     echo '<pre>',$codeReviewPrototype->getDiff(),'</pre>';

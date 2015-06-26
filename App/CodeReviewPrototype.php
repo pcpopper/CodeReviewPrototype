@@ -2,21 +2,17 @@
 namespace CodeReviewPrototype\App;
 
 Class CodeReviewPrototype {
-    public $OBERDpath = '/Users/JohnDoe/Sites/OBERD';
+    public $rootPath = '/Users/pcpopper/Sites/CodeReviewPrototype';
     public $cd;
 
     public function __construct () {
-        $this->cd = "cd $this->OBERDpath";
+        $this->cd = "cd $this->rootPath";
     }
 
-    public function getDiff ($branch = '') {
+    public function getDiff ($branch) {
         $currBranch = shell_exec("$this->cd && git rev-parse --abbrev-ref HEAD");
 
-        $cmd = $this->cd;
-        if (!empty($branch)) {
-            $cmd .= " && git checkout $branch";
-        }
-        $cmd .= " && git diff";
+        $cmd = $this->cd . " && git checkout $branch && git diff";
 
         $out = $this->getAdditions(htmlspecialchars(shell_exec($cmd)));
 
