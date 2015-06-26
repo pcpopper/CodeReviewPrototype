@@ -9,7 +9,7 @@ Use CodeReviewPrototype\App\CodeReviewPrototype;
 $codeReviewPrototype = new CodeReviewPrototype();
 
 if (isset($_POST['branch'])) {
-    echo '<pre>',$codeReviewPrototype->getDiff(),'</pre>';
+    echo '<pre>',$codeReviewPrototype->getDiff($_POST['branch']),'</pre>';
 } else {
     ?>
     <form method="post">

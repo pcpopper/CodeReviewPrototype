@@ -12,8 +12,13 @@ Class CodeReviewPrototype {
     public function getDiff ($branch) {
         $currBranch = shell_exec("$this->cd && git rev-parse --abbrev-ref HEAD");
 
-        $cmd = $this->cd . " && git checkout $branch && git diff";
+        $cmd = $this->cd;
+        if (!empty($branch)) {
+            $cmd .= " && git checkout $branch";
+        }
+        $cmd .= " && git diff";
 
+//        echo '<pre>',print_r($cmd),'</pre>',die();
         $out = $this->getAdditions(htmlspecialchars(shell_exec($cmd)));
 
         shell_exec("$this->cd && git checkout $currBranch");
