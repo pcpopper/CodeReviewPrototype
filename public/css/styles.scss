@@ -1,10 +1,91 @@
-header {
-  height: 100px;
+$menu-width: 150px;
+$body-margin: 8px;
+
+body {
+  background: gray;
+  margin: $body-margin;
 }
-leftBar {
-  width: 100px;
-  :after {
-    width:100%;
-    border-right: 1px solid black;
+
+#menu {
+  background: #2980b9;
+  margin-left: -$body-margin;
+  top: 50%;
+  position: fixed;
+  transform: translateY(-50%);
+  padding: 5px 0 5px 0;
+  width: $menu-width;
+
+  #wrapper{
+    width: 100%;
+
+    .btn {
+      background: #2980b9;
+      font-family: Arial;
+      color: #ffffff;
+      font-size: 20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-decoration: none;
+      width: 100%;
+    }
+    .btn.current {
+      background: #37a0e6;
+      text-shadow: 1px 1px 3px #666666;
+    }
+    .btn.current:hover {
+      background: #37a0e6;
+      text-shadow: 1px 1px 3px #666666;
+      cursor: default;
+    }
+    .btn.current:after {
+      content: ' ';
+      position: absolute;
+      top: 5px;
+      left: 89%;
+      width: 0;
+      height: 0;
+      border-top: 17px solid #2980b9;
+      border-bottom: 16px solid #2980b9;
+      border-left: 16px solid #37a0e6;
+    }
+    .btn:hover {
+      background: #3cb0fd;
+      background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+  }
+  //#wrapper:after {
+  //  content: '<';
+  //  position: absolute;
+  //  top: 50%;
+  //  height: 100%;
+  //  left: 100%;
+  //  font-size: 50pt;
+  //  transform:scale(.25,1); /* W3C */
+  //  -webkit-transform:scale(.25,1); /* Safari and Chrome */
+  //  -moz-transform:scale(.25,1); /* Firefox */
+  //  -ms-transform:scale(.25,1); /* IE 9 */
+  //  -o-transform:scale(.25,1); /* Opera */
+  //}
+}
+
+#pageWrapper {
+  display: flex;
+
+  #buffer {
+    padding: 5px;
+  }
+  #buffer.out {
+    width: $body-margin + $menu-width;
+  }
+
+  #content {
+    width: 100%;
   }
 }

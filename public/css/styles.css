@@ -1,10 +1,60 @@
-header {
-  height: 100px; }
+body {
+  background: gray;
+  margin: 8px; }
 
-leftBar {
-  width: 100px; }
-  leftBar :after {
-    width: 100%;
-    border-right: 1px solid black; }
+#menu {
+  background: #2980b9;
+  margin-left: -8px;
+  top: 50%;
+  position: fixed;
+  transform: translateY(-50%);
+  padding: 5px 0 5px 0;
+  width: 150px; }
+  #menu #wrapper {
+    width: 100%; }
+    #menu #wrapper .btn {
+      background: #2980b9;
+      font-family: Arial;
+      color: #ffffff;
+      font-size: 20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-decoration: none;
+      width: 100%; }
+    #menu #wrapper .btn.current {
+      background: #37a0e6;
+      text-shadow: 1px 1px 3px #666666; }
+    #menu #wrapper .btn.current:hover {
+      background: #37a0e6;
+      text-shadow: 1px 1px 3px #666666;
+      cursor: default; }
+    #menu #wrapper .btn.current:after {
+      content: ' ';
+      position: absolute;
+      top: 5px;
+      left: 89%;
+      width: 0;
+      height: 0;
+      border-top: 17px solid #2980b9;
+      border-bottom: 16px solid #2980b9;
+      border-left: 16px solid #37a0e6; }
+    #menu #wrapper .btn:hover {
+      background: #3cb0fd;
+      background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+      text-decoration: none;
+      cursor: pointer; }
+
+#pageWrapper {
+  display: flex; }
+  #pageWrapper #buffer {
+    padding: 5px; }
+  #pageWrapper #buffer.out {
+    width: 158px; }
+  #pageWrapper #content {
+    width: 100%; }
 
 /*# sourceMappingURL=styles.css.map */
