@@ -3,47 +3,75 @@
 
 namespace CodeReviewPrototype\App\Controllers;
 
+use CodeReviewPrototype\App\Controllers\TemplatesController;
+use CodeReviewPrototype\App\Controllers\MenuController;
 
 class ViewsController {
 
-    private $html = null;
-    private $htmlStart = null;
-    private $htmlEnd = null;
-    private $title = null;
+    private $methods                = array();
+    private $properties             = null;
+    private $viewClass              = null;
+    private $htmlStart              = null;
+    private $templatesController    = null;
+
 
     public function __construct($page) {
         if ($page == '') {
             throw new \Exception ('You must specify a page to load!');
         }
 
-        $this->callChildClass($page);
+        $this->templatesController = new TemplatesController();
+        $this->htmlStart = $this->templatesController->getTemplate('HTMLStart');
+
+        $this->getViewClass($page);
+        $this->parseProperties();
+        $this->renderHTML();
+        $this->renderMenu();
+        $this->runClassMethods();
     }
 
-    private function callChildClass ($page) {
+    private function getViewClass ($page) {
         $className = 'CodeReviewPrototype\App\Views\\'.$page.'View';
-        $childClass = new $className($page);
+        $this->viewClass = new $className($page);
 
-        $methodsRaw = get_class_methods($childClass);
-        $methods = array();
+        $methodsRaw = get_class_methods($this->viewClass);
         foreach ($methodsRaw as $method) {
             if (strpos($method, 'render') !== false) {
-                $methods[] = $method;
+                $this->methods[] = $method;
             }
         }
 
-        echo '<pre>',var_dump($methods),'</pre>';
+        $this->properties = (object) get_class_vars($className);
     }
 
-    private function makeHTMLStrings () {
-        $this->htmlStart = '<!DOCTYPE html>'.
-            '<html>'.
-            '<head lang="en">'.
-            '<meta charset="UTF-8">'.
-            "<title>CodeReview Prototype - $this->title</title>".
-            '</head>'.
-            '<body>';
-        $this->htmlEnd = '</body>'.
-            '</html>';
+    private function parseProperties () {
+        $this->htmlStart = preg_replace("/##title##/", $this->properties->title, $this->htmlStart);
 
+        $css = '';
+        foreach ($this->properties->css as $file) {
+            $css .= "<link rel=\"stylesheet\" href=\"/css/$file\">\n";
+        }
+
+        $this->htmlStart = preg_replace("/##includes##/", $css, $this->htmlStart);
+    }
+
+    private function renderHTML () {
+        echo $this->htmlStart;
+    }
+
+    private function renderMenu () {
+        $menuHTML = $this->templatesController->getTemplate('MenuBar');
+        $menuHTML = new MenuController($menuHTML);
+        echo $menuHTML;
+    }
+
+    private function runClassMethods () {
+        echo '    <div id="pageWrapper">'.
+            '<div id="buffer"></div>'.
+            '<div id="content">';
+
+        foreach ($this->methods as $method) {
+            $this->viewClass->$method($this->templatesController);
+        }
     }
 }
