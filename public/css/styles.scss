@@ -1,0 +1,10 @@
+header {
+  height: 100px;
+}
+leftBar {
+  width: 100px;
+  :after {
+    width:100%;
+    border-right: 1px solid black;
+  }
+}

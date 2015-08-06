@@ -4,13 +4,31 @@ ini_set('display_errors', 1);
 
 include '../vendor/autoload.php';
 
-Use CodeReviewPrototype\App\CodeReviewPrototype;
+use CodeReviewPrototype\App\Controllers\ViewsController;
 
-$codeReviewPrototype = new CodeReviewPrototype();
+new ViewsController('Default');
+?>
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>CodeReview Prototype</title>
+    </head>
+    <body>
+    </body>
+</html>
 
+
+
+
+<?php
+//Use CodeReviewPrototype\App;
+//
+//$codeReviewPrototype = new \CodeReviewPrototype\App\CodeReviewPrototype();
+//
 if (isset($_POST['branch'])) {
-    echo '<pre>',$codeReviewPrototype->getDiff($_POST['branch']),'</pre>';
-} else {
+    echo '<pre>',$codeReviewPrototype->getDiff(),'</pre>';
+} else if (1==0) {
     ?>
     <form method="post">
         <select name="branch">
