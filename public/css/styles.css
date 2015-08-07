@@ -9,18 +9,21 @@ body {
   position: fixed;
   transform: translateY(-50%);
   padding: 5px 0 5px 0;
-  width: 150px; }
+  width: 160px; }
   #menu #wrapper {
     width: 100%; }
+    #menu #wrapper a {
+      font-family: Arial;
+      color: #ffffff;
+      text-decoration: none; }
     #menu #wrapper .btn {
       background: #2980b9;
       font-family: Arial;
       color: #ffffff;
       font-size: 20px;
-      padding-top: 5px;
-      padding-bottom: 5px;
+      padding: 5px 0 5px 20px;
       text-decoration: none;
-      width: 100%; }
+      width: 140px; }
     #menu #wrapper .btn.current {
       background: #37a0e6;
       text-shadow: 1px 1px 3px #666666; }
@@ -47,13 +50,18 @@ body {
       background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
       text-decoration: none;
       cursor: pointer; }
+    #menu #wrapper .btn.child {
+      font-size: 10px; }
+    #menu #wrapper hr {
+      border-right: 0;
+      border-left: 0; }
 
 #pageWrapper {
   display: flex; }
   #pageWrapper #buffer {
     padding: 5px; }
   #pageWrapper #buffer.out {
-    width: 158px; }
+    width: 168px; }
   #pageWrapper #content {
     width: 100%; }
 

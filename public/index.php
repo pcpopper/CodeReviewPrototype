@@ -5,39 +5,10 @@ ini_set('display_errors', 1);
 include '../vendor/autoload.php';
 
 use CodeReviewPrototype\App\Controllers\ViewsController;
+use CodeReviewPrototype\App\Controllers\RouteController;
 
-new ViewsController('Default');
-?>
-<!DOCTYPE html>
-<html>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title>CodeReview Prototype</title>
-    </head>
-    <body>
-    </body>
-</html>
+$routeController = new RouteController();
+$route = $routeController->getCurrentRoute();
 
-
-
-
-<?php
-//Use CodeReviewPrototype\App;
-//
-//$codeReviewPrototype = new \CodeReviewPrototype\App\CodeReviewPrototype();
-//
-if (isset($_POST['branch'])) {
-    echo '<pre>',$codeReviewPrototype->getDiff(),'</pre>';
-} else if (1==0) {
-    ?>
-    <form method="post">
-        <select name="branch">
-            <?php foreach ($codeReviewPrototype->getBranches() as $branch): ?>
-                <option value="<?php echo $branch['value'] ?>" <?php echo ($branch['value'] == '') ? 'selected' : '' ?>><?php echo $branch['name'] ?></option>
-            <?php endforeach ?>
-        </select>
-        <input type="submit">
-    </form>
-<?php
-}
-?>
+$viewsController = new ViewsController();
+$viewsController->renderPage($route);

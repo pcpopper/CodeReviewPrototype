@@ -14,25 +14,20 @@ class ViewsController {
     private $htmlStart              = null;
     private $templatesController    = null;
 
-
-    public function __construct($page) {
-        if ($page == '') {
-            throw new \Exception ('You must specify a page to load!');
-        }
-
+    public function renderPage ($route) {
         $this->templatesController = new TemplatesController();
         $this->htmlStart = $this->templatesController->getTemplate('HTMLStart');
 
-        $this->getViewClass($page);
+        $this->getViewClass($route);
         $this->parseProperties();
         $this->renderHTML();
         $this->renderMenu();
         $this->runClassMethods();
     }
 
-    private function getViewClass ($page) {
-        $className = 'CodeReviewPrototype\App\Views\\'.$page.'View';
-        $this->viewClass = new $className($page);
+    private function getViewClass ($route) {
+        $className = 'CodeReviewPrototype\App\Views\\'.$route->name.'View';
+        $this->viewClass = new $className($route);
 
         $methodsRaw = get_class_methods($this->viewClass);
         foreach ($methodsRaw as $method) {
@@ -61,13 +56,13 @@ class ViewsController {
 
     private function renderMenu () {
         $menuHTML = $this->templatesController->getTemplate('MenuBar');
-        $menuHTML = new MenuController($menuHTML);
-        echo $menuHTML;
+        $menuController = new MenuController($menuHTML);
+        echo $menuController->renderMenu();
     }
 
     private function runClassMethods () {
         echo '    <div id="pageWrapper">'.
-            '<div id="buffer"></div>'.
+            '<div id="buffer" class="out"></div>'.
             '<div id="content">';
 
         foreach ($this->methods as $method) {

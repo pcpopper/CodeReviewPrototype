@@ -1,4 +1,4 @@
-$menu-width: 150px;
+$menu-width: 160px;
 $body-margin: 8px;
 
 body {
@@ -18,15 +18,20 @@ body {
   #wrapper{
     width: 100%;
 
+    a {
+      font-family: Arial;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
     .btn {
       background: #2980b9;
       font-family: Arial;
       color: #ffffff;
       font-size: 20px;
-      padding-top: 5px;
-      padding-bottom: 5px;
+      padding: 5px 0 5px 20px;
       text-decoration: none;
-      width: 100%;
+      width: $menu-width - 20;
     }
     .btn.current {
       background: #37a0e6;
@@ -58,7 +63,14 @@ body {
       text-decoration: none;
       cursor: pointer;
     }
+    .btn.child {
+      font-size: 10px;
+    }
 
+    hr {
+      border-right: 0;
+      border-left: 0;
+    }
   }
   //#wrapper:after {
   //  content: '<';
