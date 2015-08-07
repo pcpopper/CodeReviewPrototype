@@ -43,8 +43,6 @@ class ViewsController {
     }
 
     private function parseProperties () {
-        $this->htmlStart = preg_replace("/##title##/", $this->properties->title, $this->htmlStart);
-
         $includes = '';
         $this->properties->css = array_merge($this->properties->css, $this->css);
         foreach ($this->properties->css as $file) {
@@ -56,14 +54,16 @@ class ViewsController {
             $includes .= "<script type=\"text/javascript\" src=\"/js/$file.js\"></script>";
         }
 
-        $this->htmlStart = preg_replace("/##includes##/", $includes, $this->htmlStart);
-
         $options = array();
         foreach ($this->properties->options as $key => $value) {
             $options[] = "\"$key\": \"$value\"";
         }
 
-        $this->htmlStart = preg_replace("/##options##/", implode(',', $options), $this->htmlStart);
+        $this->htmlStart = TemplatesController::replaceInTemplate($this->htmlStart, array(
+            'title'     => $this->properties->title,
+            'includes'  => $includes,
+            'options'   => implode(',', $options),
+        ));
     }
 
     private function renderHTML () {

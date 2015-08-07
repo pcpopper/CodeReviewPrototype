@@ -22,4 +22,13 @@ class TemplatesController {
             throw new \Exception ("The called template '$template' could not be found.");
         }
     }
+
+    public static function replaceInTemplate ($template, $replacements, $mask = '##') {
+        foreach ($replacements as $needle => $replacement) {
+            $searchString = $mask.$needle.$mask;
+            $template = preg_replace("/$searchString/", $replacement, $template);
+        }
+
+        return $template;
+    }
 }

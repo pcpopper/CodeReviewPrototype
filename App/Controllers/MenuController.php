@@ -106,23 +106,22 @@ class MenuController {
     }
 
     private function buildButton ($branch) {
-        $button = $this->buttonTemplate;
-
         $current = (isset($branch->child) && $branch->child) ? ' (current)' : ' <small><small><b>(current)</b></small></small>';
         $current = (isset($branch->current) && $branch->current) ? $current : '';
-        $button = preg_replace("/@@current@@/", $current, $button);
 
         $child = (isset($branch->child) && $branch->child) ? ' child' : '';
-        $button = preg_replace("/@@child@@/", $child, $button);
-
         $parent = (isset($branch->parent) && $branch->parent) ? ' parent' : '';
-        $button = preg_replace("/@@parent@@/", $parent, $button);
-
-        $button = preg_replace("/@@name@@/", $branch->name, $button);
-        $button = preg_replace("/@@id@@/", ucfirst($branch->name), $button);
-
         $value = (isset($branch->value) && $branch->value) ? " onclick=\"location.href='$branch->value'\"" : '';
-        $button = preg_replace("/@@link@@/", $value, $button);
+
+        $replacements = array (
+            'current'   => $current,
+            'child'     => $child,
+            'parent'    => $parent,
+            'name'      => $branch->name,
+            'id'        => ucfirst($branch->name),
+            'link'      => $value,
+        );
+        $button = TemplatesController::replaceInTemplate($this->buttonTemplate, $replacements, '@@');
 
         return $button."\n";
     }
