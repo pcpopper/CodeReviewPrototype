@@ -44,7 +44,7 @@ class MenuController {
     }
 
     private function getBranches () {
-        $root = Settings::ROOTPATH;
+        $root = Settings::ROOT_PATH;
         $branchesRaw = shell_exec("cd $root && git branch");
         $branches = explode("\n", $branchesRaw);
 
@@ -84,7 +84,6 @@ class MenuController {
 
                 if (!in_array($trimmedBranch, $this->branches)) {
                     $this->branches[trim($branch)] = array(
-                        'value'     => "/branch/$value",
                         'name'      => (substr($trimmedBranch, 0, 1) == '*') ? $replacedBranch : $trimmedBranch,
                         'current'   => (substr($trimmedBranch, 0, 1) == '*') ? true : false,
                     );

@@ -3,6 +3,7 @@
 
 namespace CodeReviewPrototype\App\Views;
 
+use CodeReviewPrototype\App\Controllers\BranchesController;
 
 class BranchesView {
 
@@ -13,15 +14,16 @@ class BranchesView {
         'menuOut' => true,
         'menuCurrent' => '');
 
-    private $branchWhole = '';
+    private $route = null;
 
     public function __construct ($route) {
-        $this->branchWhole = implode('/', (array) $route->vars);
+        $this->route = $route;
         $this->options['menuCurrent'] = (isset($route->vars->child) && $route->vars->child != '') ? $route->vars->child : $route->vars->parent;
-        $this->title .= $this->branchWhole;
+        $this->title .= implode('/', (array) $route->vars);
     }
 
-    public function renderBranch () {
-
+    public function renderBranch ($templatesController) {
+        $branchesController = new BranchesController($templatesController, $this->route);
+        echo $branchesController->buildPage();
     }
 }
