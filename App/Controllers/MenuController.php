@@ -4,27 +4,30 @@
 namespace CodeReviewPrototype\App\Controllers;
 
 
+use CodeReviewPrototype\App\Settings\Settings;
+
 class MenuController {
 
-    private $rootPath = '/Users/JohnDoe/Sites/OBERD';
-    private $cd = null;
     private $branches = array();
     private $buttonTemplate = null;
     private $menuTemplate = null;
 
     public function __construct ($menuTemplate) {
-        $this->cd = "cd $this->rootPath";
         $this->menuTemplate = $menuTemplate;
     }
 
     public function renderMenu () {
         preg_match("/##buttonTemplate=(.+)##/", $this->menuTemplate, $this->buttonTemplate);
         $this->buttonTemplate = $this->buttonTemplate[1];
-        $this->menuTemplate = preg_replace("/##buttonTemplate=(.+)##/", "", $this->menuTemplate);
 
-        $this->menuTemplate = preg_replace("/##topButtons##/", $this->buildTopButtons(), $this->menuTemplate);
         $this->getBranches();
-        return preg_replace("/##links##/", $this->parseBranches(), $this->menuTemplate);
+
+        $replacements = array(
+            'buttonTemplate=(.+)'   => '',
+            'topButtons'            => $this->buildTopButtons(),
+            'links'                 => $this->parseBranches(),
+        );
+        return TemplatesController::replaceInTemplate($this->menuTemplate, $replacements);
     }
 
     private function buildTopButtons () {
@@ -41,7 +44,8 @@ class MenuController {
     }
 
     private function getBranches () {
-        $branchesRaw = shell_exec("$this->cd && git branch");
+        $root = Settings::ROOTPATH;
+        $branchesRaw = shell_exec("cd $root && git branch");
         $branches = explode("\n", $branchesRaw);
 
         foreach ($branches as $branch) {
