@@ -110,7 +110,8 @@ class MenuController {
     private function buildButton ($branch) {
         $button = $this->buttonTemplate;
 
-        $current = (isset($branch->current) && $branch->current) ? ' (current)' : '';
+        $current = (isset($branch->child) && $branch->child) ? ' (current)' : ' <small><small><b>(current)</b></small></small>';
+        $current = (isset($branch->current) && $branch->current) ? $current : '';
         $button = preg_replace("/@@current@@/", $current, $button);
 
         $child = (isset($branch->child) && $branch->child) ? ' child' : '';
