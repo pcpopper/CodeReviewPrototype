@@ -4,17 +4,14 @@
 namespace CodeReviewPrototype\App\Controllers;
 
 use CodeReviewPrototype\App\Models\RouteModel;
+use CodeReviewPrototype\App\Settings\Routes;
 
 class RouteController {
 
     public $routes = null;
 
     public function __construct () {
-        $this->routes = RouteModel::hydrateRouteModels(array(
-            array('name'=>'Default',    'path'=>'/',            'mask'=>'/'),
-            array('name'=>'Branches',   'path'=>'/branch',      'mask'=>'/branch/[parent]/[child]'),
-//            array('name'=>'', 'mask'=>'', 'path'=>''),
-        ));
+        $this->routes = RouteModel::hydrateRouteModels(Routes::$routes);
     }
 
     public function getCurrentRoute () {
