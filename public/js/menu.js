@@ -7,7 +7,6 @@ var SideMenu = function (pageOptions) {
     };
 
     this.initialize = function (pageOptions) {
-        console.dir(pageOptions);
         this.options = $.extend(this.options, JSON.parse(pageOptions));
         this.options.menuOut = (this.options.menuOut == "1");
 
@@ -17,7 +16,7 @@ var SideMenu = function (pageOptions) {
     this.getCurrent = function () {
         var _self = this;
         this.options.itemDivs.each(function (idx, div) {
-            if (div.id == 'menu'+_self.options.menuCurrent) {
+            if (div.id.toLowerCase() == 'menu'+_self.options.menuCurrent.toLowerCase()) {
                 $(div).addClass('current');
             }
         });

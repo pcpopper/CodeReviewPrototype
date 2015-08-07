@@ -44,13 +44,14 @@ body {
       width: $menu-width - 35;
     }
     .btn.current {
+      position: relative;
       background: #37a0e6;
       text-shadow: 1px 1px 3px #666666;
     }
     .btn.current:after {
       content: ' ';
       position: absolute;
-      top: 4px;
+      top: 0;
       left: $menu-width - 17;
       width: 0;
       height: 0;

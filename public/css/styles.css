@@ -35,12 +35,13 @@ body {
       padding-left: 30px !important;
       width: 175px; }
     #menu #wrapper .btn.current {
+      position: relative;
       background: #37a0e6;
       text-shadow: 1px 1px 3px #666666; }
     #menu #wrapper .btn.current:after {
       content: ' ';
       position: absolute;
-      top: 4px;
+      top: 0;
       left: 193px;
       width: 0;
       height: 0;
