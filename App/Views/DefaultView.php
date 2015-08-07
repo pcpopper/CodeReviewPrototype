@@ -6,9 +6,10 @@ namespace CodeReviewPrototype\App\Views;
 
 class DefaultView {
 
-    public static $title = 'Home';
-    public static $css = array('styles.css');
-    public static $options = array(
+    public $title = 'Home';
+    public $css = array();
+    public $js = array();
+    public $options = array(
         'menuOut' => true,
         'menuCurrent' => 'Home');
 

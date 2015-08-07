@@ -13,6 +13,8 @@ class ViewsController {
     private $viewClass              = null;
     private $htmlStart              = null;
     private $templatesController    = null;
+    private $css                    = array('styles');
+    private $js                     = array();
 
     public function renderPage ($route) {
         $this->templatesController = new TemplatesController();
@@ -23,6 +25,7 @@ class ViewsController {
         $this->renderHTML();
         $this->renderMenu();
         $this->runClassMethods();
+        echo $this->templatesController->getTemplate('HTMLEnd');
     }
 
     private function getViewClass ($route) {
@@ -36,18 +39,31 @@ class ViewsController {
             }
         }
 
-        $this->properties = (object) get_class_vars($className);
+        $this->properties = (object) get_object_vars($this->viewClass);
     }
 
     private function parseProperties () {
         $this->htmlStart = preg_replace("/##title##/", $this->properties->title, $this->htmlStart);
 
-        $css = '';
+        $includes = '';
+        $this->properties->css = array_merge($this->properties->css, $this->css);
         foreach ($this->properties->css as $file) {
-            $css .= "<link rel=\"stylesheet\" href=\"/css/$file\">\n";
+            $includes .= "<link rel=\"stylesheet\" href=\"/css/$file.css\">\n";
         }
 
-        $this->htmlStart = preg_replace("/##includes##/", $css, $this->htmlStart);
+        $this->properties->js = array_merge($this->properties->js, $this->js);
+        foreach ($this->properties->js as $file) {
+            $includes .= "<script type=\"text/javascript\" src=\"/js/$file.js\"></script>";
+        }
+
+        $this->htmlStart = preg_replace("/##includes##/", $includes, $this->htmlStart);
+
+        $options = array();
+        foreach ($this->properties->options as $key => $value) {
+            $options[] = "\"$key\": \"$value\"";
+        }
+
+        $this->htmlStart = preg_replace("/##options##/", implode(',', $options), $this->htmlStart);
     }
 
     private function renderHTML () {
