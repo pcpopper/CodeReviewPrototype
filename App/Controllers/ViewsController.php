@@ -14,7 +14,7 @@ class ViewsController {
     private $htmlStart              = null;
     private $templatesController    = null;
     private $css                    = array('styles');
-    private $js                     = array();
+    private $js                     = array('jquery-2.1.4.min', 'menu');
 
     public function renderPage ($route) {
         $this->templatesController = new TemplatesController();

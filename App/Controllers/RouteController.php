@@ -44,11 +44,11 @@ class RouteController {
         for ($i = 0; $i < count($explodedMask); $i++) {
             if (strpos($explodedMask[$i], '[') !== false) {
                 if (isset($explodedURI[$i])) {
-                    $args[$explodedMask[$i]] = $explodedURI[$i];
+                    $args[preg_replace("/\[(.+)\]/", "$1", $explodedMask[$i])] = $explodedURI[$i];
                 }
             }
         }
 
-        return $args;
+        return (object) $args;
     }
 }
