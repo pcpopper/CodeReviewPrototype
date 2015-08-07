@@ -9,38 +9,18 @@ body {
   position: fixed;
   transform: translateY(-50%);
   padding: 5px 0 5px 0;
-  width: 160px; }
+  width: 210px; }
   #menu #wrapper {
     width: 100%; }
-    #menu #wrapper a {
-      font-family: Arial;
-      color: #ffffff;
-      text-decoration: none; }
     #menu #wrapper .btn {
       background: #2980b9;
       font-family: Arial;
       color: #ffffff;
       font-size: 20px;
-      padding: 5px 0 5px 20px;
+      padding: 5px 5px 5px 20px;
       text-decoration: none;
-      width: 140px; }
-    #menu #wrapper .btn.current {
-      background: #37a0e6;
-      text-shadow: 1px 1px 3px #666666; }
-    #menu #wrapper .btn.current:hover {
-      background: #37a0e6;
-      text-shadow: 1px 1px 3px #666666;
-      cursor: default; }
-    #menu #wrapper .btn.current:after {
-      content: ' ';
-      position: absolute;
-      top: 5px;
-      left: 89%;
-      width: 0;
-      height: 0;
-      border-top: 17px solid #2980b9;
-      border-bottom: 16px solid #2980b9;
-      border-left: 16px solid #37a0e6; }
+      width: 185px;
+      height: 23px; }
     #menu #wrapper .btn:hover {
       background: #3cb0fd;
       background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
@@ -51,7 +31,29 @@ body {
       text-decoration: none;
       cursor: pointer; }
     #menu #wrapper .btn.child {
-      font-size: 10px; }
+      font-size: 10px;
+      padding-left: 30px !important;
+      width: 175px; }
+    #menu #wrapper .btn.current {
+      background: #37a0e6;
+      text-shadow: 1px 1px 3px #666666; }
+    #menu #wrapper .btn.current:after {
+      content: ' ';
+      position: absolute;
+      top: 4px;
+      left: 193px;
+      width: 0;
+      height: 0;
+      border-top: 17px solid #2980b9;
+      border-bottom: 17px solid #2980b9;
+      border-left: 17px solid #37a0e6; }
+    #menu #wrapper .btn.current:hover {
+      background: #37a0e6;
+      text-shadow: 1px 1px 3px #666666;
+      cursor: default; }
+    #menu #wrapper .btn.parent:hover {
+      background: #2980b9;
+      cursor: default; }
     #menu #wrapper hr {
       border-right: 0;
       border-left: 0; }
@@ -61,8 +63,8 @@ body {
   #pageWrapper #buffer {
     padding: 5px; }
   #pageWrapper #buffer.out {
-    width: 168px; }
+    width: 218px; }
   #pageWrapper #content {
-    width: 100%; }
+    width: 90%; }
 
 /*# sourceMappingURL=styles.css.map */

@@ -55,11 +55,10 @@ class MenuController {
 
                 if (array_key_exists($replacedBranch, $this->branches)) {
                     $this->branches[$replacedBranch]['children'][] = array(
-                        'value'     => $value,
+                        'value'     => "/branch/$value",
                         'name'      => $trimmedChild,
                         'current'   => (substr($trimmedParent, 0, 1) == '*') ? true : false,
                         'child'     => true,
-                        'parent'    => (substr($trimmedParent, 0, 1) == '*') ? $replacedBranch : $trimmedParent,
                     );
                 } else {
                     $this->branches[$replacedBranch] = array(
@@ -67,11 +66,10 @@ class MenuController {
                         'parent'    => true,
                         'children'  => array(
                             array(
-                                'value'     => $value,
+                                'value'     => "/branch/$value",
                                 'name'      => $trimmedChild,
                                 'current'   => (substr($trimmedParent, 0, 1) == '*') ? true : false,
                                 'child'     => true,
-                                'parent'    => (substr($trimmedParent, 0, 1) == '*') ? $replacedBranch : $trimmedParent,
                             ),
                         )
                     );
@@ -82,7 +80,7 @@ class MenuController {
 
                 if (!in_array($trimmedBranch, $this->branches)) {
                     $this->branches[trim($branch)] = array(
-                        'value'     => $value,
+                        'value'     => "/branch/$value",
                         'name'      => (substr($trimmedBranch, 0, 1) == '*') ? $replacedBranch : $trimmedBranch,
                         'current'   => (substr($trimmedBranch, 0, 1) == '*') ? true : false,
                     );
@@ -123,10 +121,8 @@ class MenuController {
         $button = preg_replace("/@@name@@/", $branch->name, $button);
         $button = preg_replace("/@@id@@/", ucfirst($branch->name), $button);
 
-        $value = (isset($branch->value) && $branch->value) ? "<a href=\"/branch/$branch->value\">" : '';
-        $button = preg_replace("/@@a@@/", $value, $button);
-        $value = (isset($branch->value) && $branch->value) ? "</a>" : '';
-        $button = preg_replace("/@@\/a@@/", $value, $button);
+        $value = (isset($branch->value) && $branch->value) ? " onclick=\"location.href='$branch->value'\"" : '';
+        $button = preg_replace("/@@link@@/", $value, $button);
 
         return $button."\n";
     }
