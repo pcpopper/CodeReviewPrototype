@@ -2,6 +2,20 @@ body {
   background: gray;
   margin: 8px; }
 
+pre {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12pt;
+  margin: 0; }
+
+.green {
+  color: green; }
+
+.red {
+  color: red; }
+
+.yellow {
+  color: yellow; }
+
 #menu {
   background: #2980b9;
   margin-left: -8px;
@@ -67,5 +81,94 @@ body {
     width: 218px; }
   #pageWrapper #content {
     width: 90%; }
+    #pageWrapper #content #collector {
+      width: 95%; }
+      #pageWrapper #content #collector #botBorder {
+        background-color: white;
+        border-top: 2px dashed black;
+        padding-left: 10px;
+        width: 100%; }
+      #pageWrapper #content #collector #box .diffHolder {
+        background-color: white;
+        border-style: dashed;
+        border-color: black;
+        border-width: 0 2px 0 2px;
+        padding: 4px 5px 4px 5px;
+        width: 100%;
+        display: flex; }
+        #pageWrapper #content #collector #box .diffHolder .diff {
+          padding-left: 4px;
+          overflow-x: scroll;
+          white-space: nowrap;
+          width: 100%; }
+          #pageWrapper #content #collector #box .diffHolder .diff hr {
+            border: 1px solid gray;
+            width: 150%;
+            margin-left: -4px; }
+          #pageWrapper #content #collector #box .diffHolder .diff .add {
+            background-color: #dbffdb; }
+          #pageWrapper #content #collector #box .diffHolder .diff .sub {
+            background-color: #ffecec; }
+        #pageWrapper #content #collector #box .diffHolder .diffNumbers {
+          font-family: "Times New Roman", Times, serif;
+          font-size: 12pt;
+          -webkit-user-select: none;
+          /* Chrome/Safari */
+          -moz-user-select: none;
+          /* Firefox */
+          -ms-user-select: none;
+          /* IE10+ */
+          padding-right: 4px;
+          cursor: default;
+          border-right: 4px solid gray;
+          display: flex;
+          width: 69px; }
+          #pageWrapper #content #collector #box .diffHolder .diffNumbers hr {
+            border: 1px solid gray;
+            width: 125%; }
+          #pageWrapper #content #collector #box .diffHolder .diffNumbers .new {
+            width: 32px;
+            color: gray;
+            padding-left: 2px; }
+            #pageWrapper #content #collector #box .diffHolder .diffNumbers .new hr {
+              margin-left: -2px; }
+          #pageWrapper #content #collector #box .diffHolder .diffNumbers .old {
+            width: 32px;
+            border-right: 1px solid gray;
+            padding-right: 2px;
+            color: lightgray; }
+            #pageWrapper #content #collector #box .diffHolder .diffNumbers .old hr {
+              margin-left: -5px; }
+      #pageWrapper #content #collector #box .header {
+        width: 100%;
+        background-color: #2980b9;
+        padding: 4px 0 2px 10px;
+        font-size: larger;
+        border: 2px dashed black;
+        border-top: 1px solid white;
+        border-bottom: 1px solid black;
+        display: flex;
+        justify-content: space-between; }
+        #pageWrapper #content #collector #box .header .head {
+          color: white; }
+        #pageWrapper #content #collector #box .header .stats {
+          font-size: small;
+          padding-top: inherit;
+          padding-right: 10px;
+          padding-left: 10px;
+          background-color: white;
+          border-radius: 10px;
+          margin-right: 5px;
+          margin-bottom: 1px; }
+      #pageWrapper #content #collector #branchName {
+        width: 100%;
+        background-color: #37a0e6;
+        text-align: center;
+        padding: 5px;
+        font-size: xx-large;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
+        border: 2px dashed black;
+        border-bottom: 0; }
 
 /*# sourceMappingURL=styles.css.map */
