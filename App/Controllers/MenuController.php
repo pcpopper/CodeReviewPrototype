@@ -79,15 +79,15 @@ class MenuController {
                     );
                 }
             } elseif ($exploded[0] != '' && trim($exploded[0]) != 'origin') {
-                $trimmedBranch = trim($branch);
-                $replacedBranch = trim(str_replace('*', '', $trimmedBranch));
-
-                if (!in_array($trimmedBranch, $this->branches)) {
-                    $this->branches[trim($branch)] = array(
-                        'name'      => (substr($trimmedBranch, 0, 1) == '*') ? $replacedBranch : $trimmedBranch,
-                        'current'   => (substr($trimmedBranch, 0, 1) == '*') ? true : false,
-                    );
-                }
+//                $trimmedBranch = trim($branch);
+//                $replacedBranch = trim(str_replace('*', '', $trimmedBranch));
+//
+//                if (!in_array($trimmedBranch, $this->branches)) {
+//                    $this->branches[trim($branch)] = array(
+//                        'name'      => (substr($trimmedBranch, 0, 1) == '*') ? $replacedBranch : $trimmedBranch,
+//                        'current'   => (substr($trimmedBranch, 0, 1) == '*') ? true : false,
+//                    );
+//                }
             }
         }
     }

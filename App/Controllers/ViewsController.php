@@ -78,7 +78,6 @@ class ViewsController {
 
     private function runClassMethods () {
         echo '    <div id="pageWrapper">'.
-            '<div id="buffer" class="out"></div>'.
             '<div id="content">';
 
         foreach ($this->methods as $method) {

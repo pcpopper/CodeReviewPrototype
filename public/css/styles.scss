@@ -1,15 +1,18 @@
 $menu-width: 210px;
 $body-margin: 8px;
 
+@mixin papercut($teeth-color, $background) {
+  background: linear-gradient($teeth-color 0%, transparent 0%), linear-gradient(135deg, $background 33.33%, transparent 33.33%) 0 0%, $background linear-gradient(45deg, $background 33.33%, $teeth-color 33.33%) 0 0%;
+  background: -webkit-linear-gradient($teeth-color 0%, transparent 0%), -webkit-linear-gradient(135deg, $background 33.33%, transparent 33.33%) 0 0%, $background -webkit-linear-gradient(45deg, $background 33.33%, $teeth-color 33.33%) 0 0%;
+  background: -o-linear-gradient($teeth-color 0%, transparent 0%), -o-linear-gradient(135deg, $background 33.33%, transparent 33.33%) 0 0%, $background -o-linear-gradient(45deg, $background 33.33%, $teeth-color 33.33%) 0 0%;
+  background: -moz-linear-gradient($teeth-color 0%, transparent 0%), -moz-linear-gradient(135deg, $background 33.33%, transparent 33.33%) 0 0%, $background -moz-linear-gradient(45deg, $background 33.33%, $teeth-color 33.33%) 0 0%;
+  background-repeat: repeat-x;
+  background-size: 0px 100%, 9px 10px, 9px 10px;
+}
+
 body {
   background: gray;
   margin: $body-margin;
-}
-
-pre {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 12pt;
-  margin: 0;
 }
 
 .green {
@@ -106,104 +109,100 @@ pre {
 }
 
 #pageWrapper {
-  display: flex;
-
-  #buffer {
-    padding: 5px;
-  }
-  #buffer.out {
-    width: $body-margin + $menu-width;
-  }
+  width: 99%;
+  padding-left: $menu-width + $body-margin;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 
   #content {
-    width: 85%;
+    width: 100%;
+
+    #branchName {
+      width: 100%;
+      background-color: #37a0e6;
+      text-align: center;
+      padding: 5px 0 5px 0;
+      font-size: xx-large;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+      border: 2px dashed black;
+      border-bottom: 0;
+    }
 
     #collector {
-      width: 97%;
-
-      #botBorder {
-        background-color: white;
-        border-top: 2px dashed black;
-        padding-left: 10px;
-        width: 100%;
-      }
+      width: 100%;
+      border-style: dashed;
+      border-width: 0 2px 2px 2px;
+      height: 75%;
+      background-color: white;
 
       #box {
 
         .diffHolder {
           background-color: white;
-          border-style: dashed;
-          border-color: black;
-          border-width: 0 2px 0 2px;
-          padding: 4px 5px 4px 5px;
           width: 100%;
-          display: flex;
+          overflow-x: scroll;
 
-          .diff {
-            padding-left: 4px;
-            overflow-x: scroll;
-            white-space: nowrap;
-            width: 100%;
-
-            hr {
-              border: 1px solid gray;
-              width: 150%;
-              margin-left: -4px;
-            }
-
-            .add {
-              background-color: #dbffdb;
-            }
-            .sub {
-              background-color: #ffecec;
-            }
+          table, tr, td {
+            border-collapse: collapse;
           }
-
-          .diffNumbers {
+          table {
+            width: 100%;
+          }
+          td {
+            padding: 2px;
             font-family: "Times New Roman", Times, serif;
             font-size: 12pt;
+          }
+
+          .add {
+            background-color: #dbffdb;
+          }
+          .diffContent {
+            white-space: pre;
+            width: 100%;
+            padding-right: 5px;
+          }
+          .dividers {
+            width: 100%;
+            height: 10px;
+          }
+          .dividers.bottom {
+            @include papercut(#5C5C5C, #FFF);
+          }
+          .dividers.spacer {
+            background-color: #5C5C5C;
+          }
+          .dividers.top {
+            @include papercut(#FFF, #5C5C5C);
+          }
+          .new {
+            color: gray;
+            border-right: 2px solid #5C5C5C;
+            padding-right: 4px;
+            padding-left: 4px;
+          }
+          .new, .old {
             -webkit-user-select: none; /* Chrome/Safari */
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE10+ */
+          }
+          .old {
+            color: lightgray;
+            border-right: 1px solid #5C5C5C;
             padding-right: 4px;
-            cursor: default;
-            border-right: 4px solid gray;
-            display: flex;
-            width: 69px;
-
-            hr {
-              border: 1px solid gray;
-              width: 125%;
-            }
-
-            .new {
-              width: 32px;
-              color: gray;
-              padding-left: 2px;
-
-              hr {
-                margin-left: -2px;
-              }
-            }
-            .old {
-              width: 32px;
-              border-right: 1px solid gray;
-              padding-right: 2px;
-              color: lightgray;
-
-              hr {
-                margin-left: -5px;
-              }
-            }
+            padding-left: 5px;
+          }
+          .sub {
+            background-color: #ffecec;
           }
         }
 
         .header {
           width: 100%;
           background-color: #2980b9;
-          padding: 4px 0 2px 10px;
           font-size: larger;
-          border: 2px dashed black;
           border-top: 1px solid white;
           border-bottom: 1px solid black;
           display: flex;
@@ -211,6 +210,7 @@ pre {
 
           .head {
             color: white;
+            padding: 2px 0 2px 10px;
           }
 
           .stats {
@@ -218,23 +218,11 @@ pre {
             padding: 2px 10px 0 10px;
             background-color: white;
             border-radius: 10px;
-            margin: 0 5px 1px 0;
+            margin: 2px 5px 3px 0;
             border-top: 1px solid black;
             border-left: 1px solid black;
           }
         }
-      }
-
-      #branchName {
-        width: 100%;
-        background-color: #37a0e6;
-        text-align: center;
-        padding: 5px;
-        font-size: xx-large;
-        font-weight: bold;
-        border-radius: 10px 10px 0 0;
-        border: 2px dashed black;
-        border-bottom: 0;
       }
     }
   }
