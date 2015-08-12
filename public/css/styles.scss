@@ -116,10 +116,10 @@ pre {
   }
 
   #content {
-    width: 90%;
+    width: 85%;
 
     #collector {
-      width: 95%;
+      width: 97%;
 
       #botBorder {
         background-color: white;
@@ -215,13 +215,12 @@ pre {
 
           .stats {
             font-size: small;
-            padding-top: inherit;
-            padding-right: 10px;
-            padding-left: 10px;
+            padding: 2px 10px 0 10px;
             background-color: white;
             border-radius: 10px;
-            margin-right: 5px;
-            margin-bottom: 1px;
+            margin: 0 5px 1px 0;
+            border-top: 1px solid black;
+            border-left: 1px solid black;
           }
         }
       }

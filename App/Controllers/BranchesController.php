@@ -33,9 +33,12 @@ class BranchesController {
     }
 
     public function buildPage() {
+//        $codeReviewController = new CodeReviewController();
+
         $branchTemplate = $this->getTemplates();
         $files = $this->getFiles();
         $diff = $this->getDiff();
+//        $diff = $codeReviewController->codeReview($diff);
 
         $replacements = array(
             'branch' => $this->branch,
@@ -152,13 +155,21 @@ class BranchesController {
     }
 
     private function getNumbers($curr) {
+        $numbers = array(
+            'new' => array(),
+            'old' => array(),
+        );
+
         if (isset($curr->multiple)) {
             foreach ($curr->multiple as $diff) {
                 $lines = explode("\n", $diff->diff);
                 array_pop($lines);
                 $rem = $add = min($diff->remBegin, $diff->addBegin) + 1;
 
-                $numbers = $this->parseLines($lines, $add, $rem);
+                $numbersRaw = $this->parseLines($lines, $add, $rem);
+
+                $numbers['new'] = array_merge($numbers['new'], $numbersRaw['new']);
+                $numbers['old'] = array_merge($numbers['old'], $numbersRaw['old']);
 
                 $numbers['new'][] = '<hr>';
                 $numbers['old'][] = '<hr>';
@@ -228,7 +239,7 @@ class BranchesController {
     }
 
     private function replaceDiff($diff) {
-        $diff = '<pre>' . $diff . "</pre>";
+        $diff = '<pre>' . htmlspecialchars($diff) . "</pre>";
 
         // replace tabs
         $diff = preg_replace("/\t/", "    ", $diff);
