@@ -149,6 +149,10 @@ body {
           }
           table {
             width: 100%;
+            -webkit-user-select: none; /* Chrome/Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+ */
+            cursor: default;
           }
           td {
             padding: 2px;
@@ -182,7 +186,7 @@ body {
           }
           .inlineError {
             background-color: orange;
-            padding: 0 1px 0 1px;
+            padding: 0 2px 2px 2px;
             border: 1px solid;
             border-left-color: white;
             border-top-color: white;
@@ -193,11 +197,6 @@ body {
             border-right: 2px solid #5C5C5C;
             padding-right: 4px;
             padding-left: 4px;
-          }
-          .new, .old {
-            -webkit-user-select: none; /* Chrome/Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+ */
           }
           .old {
             color: lightgray;

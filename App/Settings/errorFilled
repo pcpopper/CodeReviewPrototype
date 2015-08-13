@@ -6,6 +6,7 @@ index 3d5ce41..5bff64b 100755
 +if($term && !empty($term)) {
 +    $array = array((
 +        'none'
++    );
 +    $searchterm = trim($term;
 +    $searchterm = trim($term)
 +    $searchterm[ = trim('term');

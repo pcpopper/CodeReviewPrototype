@@ -10,6 +10,8 @@ class CodeReviewController {
     private $bracketsCount = array();
     private $bracketsCountRaw = null;
     private $brackets = array('('=>')', '{'=>'}', '['=>']');
+    private $errors = null;
+    private $singularErrorString = '%%%';
 
     public function __construct () {
         $dictionaryController = new DictionaryController();
@@ -42,8 +44,10 @@ class CodeReviewController {
     private function parseDiff ($diff) {
         $lines = explode("\n", $diff);
         $lines = $this->getBlocks($lines);
+        $lines = $this->parseSingular($lines);
         $errors = $this->parseBulk($lines);
         $lines = $this->parseBulkErrors($lines, $errors);
+        $lines = $this->parseSingularErrors($lines);
 
         return implode("\n", $lines);
     }
@@ -116,7 +120,7 @@ class CodeReviewController {
 
                     $strOrig = substr($line, $location[1] - 3, $error->len + 3);
                     $strError = substr($line, $location[1], $error->len);
-                    $strReplace = substr($line, $location[1] - 3, 3)."@@$strError,$error->msg@@";
+                    $strReplace = substr($line, $location[1] - 3, 3).$this->makeError($strError,$error->msg);
                     $lines[$lineNum] = str_replace($strOrig, $strReplace, $line);
                 }
             }
@@ -125,16 +129,33 @@ class CodeReviewController {
         return $lines;
     }
 
-    private function parseDefaults ($line) {
-        if (!substr_count($line, '(') == substr_count($line, ')')) {
-            $line = $this->setError($line);
-        }
-
-        return $line;
+    private function makeError ($err, $msg) {
+        return "@@$err,$msg@@";
     }
 
-    private function setError ($line) {
-        return preg_replace("/^\+/", "~~", $line);
+    private function parseSingular ($lines) {
+        $errors = array();
+        foreach ($lines as $index => $line) {
+            if (substr($line, 0, 1) == '+') {
+                if (CodeReviewParseController::checkEndOfLineSemicolon($lines, $index)) {
+                    $errors["$index,".strlen($line)] = $this->makeError(' ', 'Missing the semicolon');
+                    $line .= $this->singularErrorString;
+                }
 
+                $lines[$index] = $line;
+            }
+        }
+
+        $this->errors = $errors;
+
+        return $lines;
+    }
+
+    private function parseSingularErrors ($lines) {
+        $diff = implode("\n", $lines);
+        ksort($this->errors);
+        $patterns = array_fill(0, count($this->errors), "/%%%/");
+        $diff = preg_replace($patterns, $this->errors, $diff);
+        return explode("\n", $diff);
     }
 }

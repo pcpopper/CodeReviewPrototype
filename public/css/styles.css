@@ -99,7 +99,14 @@ body {
         #pageWrapper #content #collector #box .diffHolder table, #pageWrapper #content #collector #box .diffHolder tr, #pageWrapper #content #collector #box .diffHolder td {
           border-collapse: collapse; }
         #pageWrapper #content #collector #box .diffHolder table {
-          width: 100%; }
+          width: 100%;
+          -webkit-user-select: none;
+          /* Chrome/Safari */
+          -moz-user-select: none;
+          /* Firefox */
+          -ms-user-select: none;
+          /* IE10+ */
+          cursor: default; }
         #pageWrapper #content #collector #box .diffHolder td {
           padding: 2px;
           font-family: "Times New Roman", Times, serif;
@@ -133,7 +140,7 @@ body {
           background-color: #946565; }
         #pageWrapper #content #collector #box .diffHolder .inlineError {
           background-color: orange;
-          padding: 0 1px 0 1px;
+          padding: 0 2px 2px 2px;
           border: 1px solid;
           border-left-color: white;
           border-top-color: white;
@@ -143,13 +150,6 @@ body {
           border-right: 2px solid #5C5C5C;
           padding-right: 4px;
           padding-left: 4px; }
-        #pageWrapper #content #collector #box .diffHolder .new, #pageWrapper #content #collector #box .diffHolder .old {
-          -webkit-user-select: none;
-          /* Chrome/Safari */
-          -moz-user-select: none;
-          /* Firefox */
-          -ms-user-select: none;
-          /* IE10+ */ }
         #pageWrapper #content #collector #box .diffHolder .old {
           color: lightgray;
           border-right: 1px solid #5C5C5C;
