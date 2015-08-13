@@ -2,11 +2,6 @@ body {
   background: gray;
   margin: 8px; }
 
-pre {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 12pt;
-  margin: 0; }
-
 .green {
   color: green; }
 
@@ -74,100 +69,105 @@ pre {
       border-left: 0; }
 
 #pageWrapper {
-  display: flex; }
-  #pageWrapper #buffer {
-    padding: 5px; }
-  #pageWrapper #buffer.out {
-    width: 218px; }
+  width: 99%;
+  padding-left: 218px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
   #pageWrapper #content {
-    width: 85%; }
+    width: 100%; }
+    #pageWrapper #content #branchName {
+      width: 100%;
+      background-color: #37a0e6;
+      text-align: center;
+      padding: 5px 0 5px 0;
+      font-size: xx-large;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+      border: 2px dashed black;
+      border-bottom: 0; }
     #pageWrapper #content #collector {
-      width: 97%; }
-      #pageWrapper #content #collector #botBorder {
-        background-color: white;
-        border-top: 2px dashed black;
-        padding-left: 10px;
-        width: 100%; }
+      width: 100%;
+      border-style: dashed;
+      border-width: 0 2px 2px 2px;
+      height: 75%;
+      background-color: white; }
       #pageWrapper #content #collector #box .diffHolder {
         background-color: white;
-        border-style: dashed;
-        border-color: black;
-        border-width: 0 2px 0 2px;
-        padding: 4px 5px 4px 5px;
         width: 100%;
-        display: flex; }
-        #pageWrapper #content #collector #box .diffHolder .diff {
-          padding-left: 4px;
-          overflow-x: scroll;
-          white-space: nowrap;
+        overflow-x: scroll; }
+        #pageWrapper #content #collector #box .diffHolder table, #pageWrapper #content #collector #box .diffHolder tr, #pageWrapper #content #collector #box .diffHolder td {
+          border-collapse: collapse; }
+        #pageWrapper #content #collector #box .diffHolder table {
           width: 100%; }
-          #pageWrapper #content #collector #box .diffHolder .diff hr {
-            border: 1px solid gray;
-            width: 150%;
-            margin-left: -4px; }
-          #pageWrapper #content #collector #box .diffHolder .diff .add {
-            background-color: #dbffdb; }
-          #pageWrapper #content #collector #box .diffHolder .diff .sub {
-            background-color: #ffecec; }
-        #pageWrapper #content #collector #box .diffHolder .diffNumbers {
+        #pageWrapper #content #collector #box .diffHolder td {
+          padding: 2px;
           font-family: "Times New Roman", Times, serif;
-          font-size: 12pt;
+          font-size: 12pt; }
+        #pageWrapper #content #collector #box .diffHolder .add {
+          background-color: #dbffdb; }
+        #pageWrapper #content #collector #box .diffHolder .diffContent {
+          white-space: pre;
+          width: 100%;
+          padding-right: 5px; }
+        #pageWrapper #content #collector #box .diffHolder .dividers {
+          width: 100%;
+          height: 10px; }
+        #pageWrapper #content #collector #box .diffHolder .dividers.bottom {
+          background: linear-gradient(#5C5C5C 0%, transparent 0%), linear-gradient(135deg, #FFF 33.33%, transparent 33.33%) 0 0%, #FFF linear-gradient(45deg, #FFF 33.33%, #5C5C5C 33.33%) 0 0%;
+          background: -webkit-linear-gradient(#5C5C5C 0%, transparent 0%), -webkit-linear-gradient(135deg, #FFF 33.33%, transparent 33.33%) 0 0%, #FFF -webkit-linear-gradient(45deg, #FFF 33.33%, #5C5C5C 33.33%) 0 0%;
+          background: -o-linear-gradient(#5C5C5C 0%, transparent 0%), -o-linear-gradient(135deg, #FFF 33.33%, transparent 33.33%) 0 0%, #FFF -o-linear-gradient(45deg, #FFF 33.33%, #5C5C5C 33.33%) 0 0%;
+          background: -moz-linear-gradient(#5C5C5C 0%, transparent 0%), -moz-linear-gradient(135deg, #FFF 33.33%, transparent 33.33%) 0 0%, #FFF -moz-linear-gradient(45deg, #FFF 33.33%, #5C5C5C 33.33%) 0 0%;
+          background-repeat: repeat-x;
+          background-size: 0px 100%, 9px 10px, 9px 10px; }
+        #pageWrapper #content #collector #box .diffHolder .dividers.spacer {
+          background-color: #5C5C5C; }
+        #pageWrapper #content #collector #box .diffHolder .dividers.top {
+          background: linear-gradient(#FFF 0%, transparent 0%), linear-gradient(135deg, #5C5C5C 33.33%, transparent 33.33%) 0 0%, #5C5C5C linear-gradient(45deg, #5C5C5C 33.33%, #FFF 33.33%) 0 0%;
+          background: -webkit-linear-gradient(#FFF 0%, transparent 0%), -webkit-linear-gradient(135deg, #5C5C5C 33.33%, transparent 33.33%) 0 0%, #5C5C5C -webkit-linear-gradient(45deg, #5C5C5C 33.33%, #FFF 33.33%) 0 0%;
+          background: -o-linear-gradient(#FFF 0%, transparent 0%), -o-linear-gradient(135deg, #5C5C5C 33.33%, transparent 33.33%) 0 0%, #5C5C5C -o-linear-gradient(45deg, #5C5C5C 33.33%, #FFF 33.33%) 0 0%;
+          background: -moz-linear-gradient(#FFF 0%, transparent 0%), -moz-linear-gradient(135deg, #5C5C5C 33.33%, transparent 33.33%) 0 0%, #5C5C5C -moz-linear-gradient(45deg, #5C5C5C 33.33%, #FFF 33.33%) 0 0%;
+          background-repeat: repeat-x;
+          background-size: 0px 100%, 9px 10px, 9px 10px; }
+        #pageWrapper #content #collector #box .diffHolder .error {
+          background-color: maroon; }
+        #pageWrapper #content #collector #box .diffHolder .new {
+          color: gray;
+          border-right: 2px solid #5C5C5C;
+          padding-right: 4px;
+          padding-left: 4px; }
+        #pageWrapper #content #collector #box .diffHolder .new, #pageWrapper #content #collector #box .diffHolder .old {
           -webkit-user-select: none;
           /* Chrome/Safari */
           -moz-user-select: none;
           /* Firefox */
           -ms-user-select: none;
-          /* IE10+ */
+          /* IE10+ */ }
+        #pageWrapper #content #collector #box .diffHolder .old {
+          color: lightgray;
+          border-right: 1px solid #5C5C5C;
           padding-right: 4px;
-          cursor: default;
-          border-right: 4px solid gray;
-          display: flex;
-          width: 69px; }
-          #pageWrapper #content #collector #box .diffHolder .diffNumbers hr {
-            border: 1px solid gray;
-            width: 125%; }
-          #pageWrapper #content #collector #box .diffHolder .diffNumbers .new {
-            width: 32px;
-            color: gray;
-            padding-left: 2px; }
-            #pageWrapper #content #collector #box .diffHolder .diffNumbers .new hr {
-              margin-left: -2px; }
-          #pageWrapper #content #collector #box .diffHolder .diffNumbers .old {
-            width: 32px;
-            border-right: 1px solid gray;
-            padding-right: 2px;
-            color: lightgray; }
-            #pageWrapper #content #collector #box .diffHolder .diffNumbers .old hr {
-              margin-left: -5px; }
+          padding-left: 5px; }
+        #pageWrapper #content #collector #box .diffHolder .sub {
+          background-color: #ffecec; }
       #pageWrapper #content #collector #box .header {
         width: 100%;
         background-color: #2980b9;
-        padding: 4px 0 2px 10px;
         font-size: larger;
-        border: 2px dashed black;
         border-top: 1px solid white;
         border-bottom: 1px solid black;
         display: flex;
         justify-content: space-between; }
         #pageWrapper #content #collector #box .header .head {
-          color: white; }
+          color: white;
+          padding: 2px 0 2px 10px; }
         #pageWrapper #content #collector #box .header .stats {
           font-size: small;
           padding: 2px 10px 0 10px;
           background-color: white;
           border-radius: 10px;
-          margin: 0 5px 1px 0;
+          margin: 2px 5px 3px 0;
           border-top: 1px solid black;
           border-left: 1px solid black; }
-      #pageWrapper #content #collector #branchName {
-        width: 100%;
-        background-color: #37a0e6;
-        text-align: center;
-        padding: 5px;
-        font-size: xx-large;
-        font-weight: bold;
-        border-radius: 10px 10px 0 0;
-        border: 2px dashed black;
-        border-bottom: 0; }
 
 /*# sourceMappingURL=styles.css.map */

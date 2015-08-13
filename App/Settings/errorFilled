@@ -1,0 +1,11 @@
+diff --git a/errorFilled b/errorFilled
+index 3d5ce41..5bff64b 100755
+--- a/errorFilled
++++ b/errorFilled
+@@ -20,6 +20,7 @@ class HIBC_DualLine_39_Secondary extends ParserStrategy{
++if($term && !empty($term)) {
++    $searchterm = trim($term;
++    $searchterm = trim('term);
++    $searchterm[ = trim('term');
++    $searchterm = trim("term);
+}
