@@ -82,4 +82,19 @@ class CodeReviewParseController {
 
         return $count + 1;
     }
+
+    public static function checkEndOfLineSemicolon ($lines, $index) {
+        $lastChar = substr($lines[$index], -1, 1);
+        $exceptions = array(';','{','.','(');
+        $out = false;
+
+        if (!in_array($lastChar, $exceptions)) { $out = true; }
+        if ($index != count($lines) && $out == true && substr($lines[$index+1], 0, 1) == '+') {
+            $exceptions = array('-',')');
+            $firstChar = substr(trim(preg_replace("/^\+/", " ", $lines[$index+1])), 0, 1);
+            if (in_array($firstChar, $exceptions)) { $out = false; }
+        }
+
+        return $out;
+    }
 }
