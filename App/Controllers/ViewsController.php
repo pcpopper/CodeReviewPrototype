@@ -44,12 +44,12 @@ class ViewsController {
 
     private function parseProperties () {
         $includes = '';
-        $this->properties->css = array_merge($this->properties->css, $this->css);
+        $this->properties->css = array_merge($this->css, $this->properties->css);
         foreach ($this->properties->css as $file) {
             $includes .= "<link rel=\"stylesheet\" href=\"/css/$file.css\">\n";
         }
 
-        $this->properties->js = array_merge($this->properties->js, $this->js);
+        $this->properties->js = array_merge($this->js, $this->properties->js);
         foreach ($this->properties->js as $file) {
             $includes .= "<script type=\"text/javascript\" src=\"/js/$file.js\"></script>";
         }

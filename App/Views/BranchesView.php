@@ -9,7 +9,7 @@ class BranchesView {
 
     public $title = 'Branches - ';
     public $css = array();
-    public $js = array();
+    public $js = array('branchPopUp');
     public $options = array(
         'menuOut' => true,
         'menuCurrent' => '');
