@@ -177,8 +177,19 @@ body {
           .dividers.top {
             @include papercut(#FFF, #5C5C5C);
           }
+          .error {
+            background-color: #946565;
+          }
+          .inlineError {
+            background-color: orange;
+            padding: 0 1px 0 1px;
+            border: 1px solid;
+            border-left-color: white;
+            border-top-color: white;
+            margin-right: 2px;
+          }
           .new {
-            color: gray;
+            color: black;
             border-right: 2px solid #5C5C5C;
             padding-right: 4px;
             padding-left: 4px;
