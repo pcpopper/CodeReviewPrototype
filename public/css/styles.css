@@ -130,9 +130,16 @@ body {
           background-repeat: repeat-x;
           background-size: 0px 100%, 9px 10px, 9px 10px; }
         #pageWrapper #content #collector #box .diffHolder .error {
-          background-color: maroon; }
+          background-color: #946565; }
+        #pageWrapper #content #collector #box .diffHolder .inlineError {
+          background-color: orange;
+          padding: 0 1px 0 1px;
+          border: 1px solid;
+          border-left-color: white;
+          border-top-color: white;
+          margin-right: 2px; }
         #pageWrapper #content #collector #box .diffHolder .new {
-          color: gray;
+          color: black;
           border-right: 2px solid #5C5C5C;
           padding-right: 4px;
           padding-left: 4px; }

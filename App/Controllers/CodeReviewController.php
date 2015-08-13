@@ -7,11 +7,19 @@ namespace CodeReviewPrototype\App\Controllers;
 class CodeReviewController {
 
     private $dictionary = null;
-    private $errors = null;
+    private $bracketsCount = array();
+    private $bracketsCountRaw = null;
+    private $brackets = array('('=>')', '{'=>'}', '['=>']');
 
     public function __construct () {
         $dictionaryController = new DictionaryController();
         $this->dictionary = $dictionaryController->getDictionary();
+
+        $this->bracketsCountRaw = (object) array ();
+        foreach ($this->brackets as $open => $close) {
+            $this->bracketsCountRaw->$open = 0;
+            $this->bracketsCountRaw->$close = 0;
+        }
     }
 
     public function codeReview ($differences) {
@@ -20,11 +28,9 @@ class CodeReviewController {
             if (!empty($difference->multiple)) {
                 foreach ($difference->multiple as $index => $singular) {
                     $differences->$file->multiple[$index] = $this->parseDiff($singular->diff);
-//                    echo '<pre>',var_dump(htmlspecialchars($singular->diff)),'</pre>';
                 }
             } else {
                 $differences->$file->diff = $this->parseDiff($difference->diff);
-//                echo '<pre>',var_dump(htmlspecialchars($difference->diff)),'</pre>';
             }
 
             $i++;
@@ -36,9 +42,35 @@ class CodeReviewController {
     private function parseDiff ($diff) {
         $lines = explode("\n", $diff);
         $lines = $this->getBlocks($lines);
-        $this->parseBulk($lines);
+        $errors = $this->parseBulk($lines);
+        $lines = $this->parseBulkErrors($lines, $errors);
 
         return implode("\n", $lines);
+    }
+
+    private function getBlocks ($lines) {
+        $sectionNum = -1;
+        $block = false;
+        foreach ($lines as $index => $line) {
+            if (substr($line, 0, 1) == '+' && !$block) {
+                $block = true;
+                $lines[$index] = '^^' . $line;
+            } else if (substr($line, 0, 1) != '+' && $block) {
+                $lines[$index] = '^^' . $line;
+                $block = false;
+                $sectionNum++;
+                $this->bracketsCount[] = $this->bracketsCountRaw;
+            }
+
+            if (substr($line, 0, 1) != '+' && substr($line, 0, 1) != '-' && strlen($line) > 0) {
+                foreach ($this->brackets as $open => $close) {
+                    $this->bracketsCount[$sectionNum]->$open += substr_count($line, $open);
+                    $this->bracketsCount[$sectionNum]->$close += substr_count($line, $close);
+                }
+            }
+        }
+
+        return $lines;
     }
 
     private function parseBulk ($lines) {
@@ -48,38 +80,46 @@ class CodeReviewController {
         array_shift($sections); // removes the first unneeded section
         $sections = array_map('array_shift', array_chunk($sections, 2)); // removes the other unneeded sections
 
-        $this->errors = array();
+        $errors = range(0, count($sections));
         foreach ($sections as $index => $section) { // loop through the sections
-
-            // check that there is a close bracket for every opening
-            $brackets = array('('=>')', '{'=>'}', '['=>']');
-            foreach ($brackets as $open => $close) { // loop through the brackets
-                if (strpos($section, $open) !== false) { // check if there is an open bracket
-                    if (substr_count($section, $open) != substr_count($section, $close)) { // check if the counts of the open and closing brackets are the same
-                        $this->errors[] = (object) array (
-                            'section' => $index,
-                            'char' => $open,
-                        );
-                    }
-                }
-            }
-            echo '<pre>',var_dump($this->errors),'</pre>';
+            $errors = CodeReviewParseController::checkBrackets($section, $index, $this->brackets, $errors, $this->bracketsCount);
         }
+
+        array_shift($errors);
+        return $errors;
     }
 
-    private function getBlocks ($lines) {
-        $i = 0;
+    private function parseBulkErrors ($lines, $errors) {
+        $sectionNum = 0;
         $block = false;
-        foreach ($lines as $line) {
-            if (substr($line, 0, 1) == '+' && !$block) {
-                $block = true;
-                $lines[$i] = '^^' . $line;
-            } else if (substr($line, 0, 1) != '+' && $block) {
-                $lines[$i] = '^^' . $line;
-                $block = false;
-            }
+        $blocks = array();
+        foreach ($lines as $index => $line) {
+            if (substr($line, 0, 2) == '^^') {
+                $lines[$index] = str_replace('^^', '', $line);
 
-            $i++;
+                if ($block) {
+                    $block = false;
+                    $sectionNum++;
+                } else {
+                    $block = true;
+                    $blocks[$sectionNum] = $index;
+                }
+            }
+        }
+
+        foreach ($errors as $index => $section) {
+            if (is_array($section)) {
+                foreach (array_reverse($section) as $location => $error) {
+                    $location = explode(",", $location);
+                    $lineNum = $blocks[$index] + $location[0];
+                    $line = (substr($lines[$lineNum], 0, 2) == '~~') ? $lines[$lineNum] : '~~' . $lines[$lineNum];
+
+                    $strOrig = substr($line, $location[1] - 3, $error->len + 3);
+                    $strError = substr($line, $location[1], $error->len);
+                    $strReplace = substr($line, $location[1] - 3, 3)."@@$strError,$error->msg@@";
+                    $lines[$lineNum] = str_replace($strOrig, $strReplace, $line);
+                }
+            }
         }
 
         return $lines;

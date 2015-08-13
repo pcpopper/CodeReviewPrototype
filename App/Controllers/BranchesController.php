@@ -14,9 +14,12 @@ class BranchesController {
     private $branch = null;
     private $root = null;
     private $parent = null;
+
+    private $branchTemplate = null;
     private $boxTemplate = null;
     private $rowTemplate = null;
     private $dividerTemplate = null;
+    private $errorTemplate = null;
 
     public function __construct ($templatesController, $route) {
         $this->templatesController = $templatesController;
@@ -38,7 +41,7 @@ class BranchesController {
     public function buildPage () {
         $codeReviewController = new CodeReviewController();
 
-        $branchTemplate = $this->getTemplates();
+        $this->getTemplates();
         $files = $this->getFiles();
         $diffs = $this->getDiff();
         $diff = $codeReviewController->codeReview($diffs);
@@ -48,23 +51,15 @@ class BranchesController {
             'boxes' => $this->parseFiles($files, $diff),
         );
 
-        return TemplatesController::replaceInTemplate($branchTemplate, $replacements);
+        return TemplatesController::replaceInTemplate($this->branchTemplate, $replacements);
     }
 
     private function getTemplates () {
-        $branchTemplate = $this->templatesController->getTemplate('Branch');
-
-        preg_match("/##dividerTemplate(.+)##/", preg_replace("/\n/", "..", $branchTemplate), $this->dividerTemplate);
-        $this->dividerTemplate = preg_replace("/\.\./", "\n", $this->dividerTemplate[1]);
-        $branchTemplate = preg_replace("/\.\./", "\n", preg_replace("/##dividerTemplate(.+)##/", '', preg_replace("/\n/", "..", $branchTemplate)));
-
-        preg_match("/##rowTemplate(.+)##/", preg_replace("/\n/", "..", $branchTemplate), $this->rowTemplate);
-        $this->rowTemplate = preg_replace("/\.\./", "\n", $this->rowTemplate[1]);
-        $branchTemplate = preg_replace("/\.\./", "\n", preg_replace("/##rowTemplate(.+)##/", '', preg_replace("/\n/", "..", $branchTemplate)));
-
-        preg_match("/##boxTemplate(.+)##/", preg_replace("/\n/", "..", $branchTemplate), $this->boxTemplate);
-        $this->boxTemplate = preg_replace("/\.\./", "\n", $this->boxTemplate[1]);
-        return preg_replace("/\.\./", "\n", preg_replace("/##boxTemplate(.+)##/", '', preg_replace("/\n/", "..", $branchTemplate)));
+        $this->boxTemplate = $this->templatesController->getTemplate('Branches/Boxes');
+        $this->branchTemplate = $this->templatesController->getTemplate('Branches/Branch');
+        $this->dividerTemplate = $this->templatesController->getTemplate('Branches/Divider');
+        $this->rowTemplate = $this->templatesController->getTemplate('Branches/Rows');
+        $this->errorTemplate = $this->templatesController->getTemplate('Errors');
     }
 
     private function getFiles () {
@@ -228,17 +223,23 @@ class BranchesController {
     private function replaceDiff ($line) {
         $line = htmlspecialchars($line);
 
-        // replace tabs
-//        $line = preg_replace("/\t/", "    ", $line);
-
         // replace error sign
-        $line = preg_replace("/^~~/", " ", $line);
+        $line = preg_replace("/^~~/", "", $line);
 
         // replace minus sign
         $line = preg_replace("/^-/", " ", $line);
 
         // replace plus sign
         $line = preg_replace("/^\+/", " ", $line);
+
+        // replace errors
+        while (strpos($line, '@@') !== false) {
+            preg_match("/(.*)@@(.+)@@(.*)/", $line, $output_array);
+            $errorRaw = explode(',', $output_array[2]);
+            $output_array[2] = TemplatesController::replaceInTemplate($this->errorTemplate, array('msg'=>$errorRaw[1],'code'=>$errorRaw[0]));
+
+            $line = preg_replace("/(.+)@@.+@@(.*)/", "$1$output_array[2]$2", $line);
+        }
 
         return $line;
     }
