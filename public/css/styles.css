@@ -8,19 +8,40 @@ body {
 .red {
   color: red; }
 
-.yellow {
-  color: yellow; }
-
 #menu {
-  background: #2980b9;
+  -webkit-transition: margin 1s;
+  /* Safari 3.1 to 6.0 */
+  transition: margin 1s;
   margin-left: -8px;
   top: 50%;
   position: fixed;
   transform: translateY(-50%);
-  padding: 5px 0 5px 0;
   width: 210px; }
+  #menu #button {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 25px 5px 25px 30px;
+    left: 185px;
+    background: #2980b9;
+    border-radius: 50%;
+    border: 1px solid black;
+    z-index: -1;
+    cursor: pointer;
+    color: white; }
+  #menu #button:hover {
+    background: #37a0e6; }
   #menu #wrapper {
-    width: 100%; }
+    background: #2980b9;
+    padding: 15px 0 15px 0;
+    -webkit-border-radius: 0 10px 10px 0;
+    -moz-border-radius: 0 10px 10px 0;
+    border-radius: 0 10px 10px 0;
+    width: 100%;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-left: 0; }
     #menu #wrapper .btn {
       background: #2980b9;
       font-family: Arial;
@@ -50,11 +71,11 @@ body {
     #menu #wrapper .btn.current:after {
       content: ' ';
       position: absolute;
-      top: -1px;
+      top: 0;
       left: 193px;
       width: 0;
       height: 0;
-      border-top: 17px solid #2980b9;
+      border-top: 16px solid #2980b9;
       border-bottom: 17px solid #2980b9;
       border-left: 17px solid #37a0e6; }
     #menu #wrapper .btn.current:hover {
@@ -70,10 +91,13 @@ body {
 
 #pageWrapper {
   width: 99%;
-  padding-left: 218px;
+  padding-left: 228px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  -webkit-transition: padding 1s;
+  /* Safari 3.1 to 6.0 */
+  transition: padding 1s; }
   #pageWrapper #content {
     width: 100%; }
     #pageWrapper #content #branchName {

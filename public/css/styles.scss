@@ -1,5 +1,7 @@
 $menu-width: 210px;
 $body-margin: 8px;
+$background: #2980b9;
+$highlight: #37a0e6;
 
 @mixin papercut($teeth-color, $background) {
   background: linear-gradient($teeth-color 0%, transparent 0%), linear-gradient(135deg, $background 33.33%, transparent 33.33%) 0 0%, $background linear-gradient(45deg, $background 33.33%, $teeth-color 33.33%) 0 0%;
@@ -21,24 +23,50 @@ body {
 .red {
   color: red;
 }
-.yellow {
-  color: yellow;
+.transition {
 }
 
+
 #menu {
-  background: #2980b9;
+  -webkit-transition: margin 1s; /* Safari 3.1 to 6.0 */
+  transition: margin 1s;
   margin-left: -$body-margin;
   top: 50%;
   position: fixed;
   transform: translateY(-50%);
-  padding: 5px 0 5px 0;
   width: $menu-width;
 
+  #button {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 25px 5px 25px 30px;
+    left: $menu-width - 25;
+    background: $background;
+    border-radius: 50%;
+    border: 1px solid black;
+    z-index: -1;
+    cursor: pointer;
+    color: white;
+  }
+  #button:hover {
+    background: $highlight;
+  }
+
   #wrapper{
+    background: $background;
+    padding: 15px 0 15px 0;
+    -webkit-border-radius: 0 10px 10px 0;
+    -moz-border-radius: 0 10px 10px 0;
+    border-radius: 0 10px 10px 0;
     width: 100%;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-left: 0;
 
     .btn {
-      background: #2980b9;
+      background: $background;
       font-family: Arial;
       color: #ffffff;
       font-size: 20px;
@@ -70,21 +98,21 @@ body {
     .btn.current:after {
       content: ' ';
       position: absolute;
-      top: -1px;
+      top: 0;
       left: $menu-width - 17;
       width: 0;
       height: 0;
-      border-top: 17px solid #2980b9;
-      border-bottom: 17px solid #2980b9;
-      border-left: 17px solid #37a0e6;
+      border-top: 16px solid $background;
+      border-bottom: 17px solid $background;
+      border-left: 17px solid $highlight;
     }
     .btn.current:hover {
-      background: #37a0e6;
+      background: $highlight;
       text-shadow: 1px 1px 3px #666666;
       cursor: default;
     }
     .btn.parent:hover {
-      background: #2980b9;
+      background: $background;
       cursor: default;
     }
 
@@ -97,10 +125,12 @@ body {
 
 #pageWrapper {
   width: 99%;
-  padding-left: $menu-width + $body-margin;
+  padding-left: $menu-width + $body-margin + 10;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-transition: padding 1s; /* Safari 3.1 to 6.0 */
+  transition: padding 1s;
 
   #content {
     width: 100%;

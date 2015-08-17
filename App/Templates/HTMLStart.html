@@ -7,5 +7,13 @@
 </head>
 <body>
     <script>
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        if (msie > 0) {
+            alert("We are sorry, but this site does not support Internet Explorer, for the best experience use one of the following\nGoogle Chrome (best)\nMozilla Firefox\nSafari");
+        }
+
         var pageOptions = '{##options##}';
+
     </script>
