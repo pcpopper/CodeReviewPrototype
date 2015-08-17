@@ -30,6 +30,34 @@ var BranchPopUp = function () {
     return this.initialize();
 };
 
+var BranchFileToggle = function () {
+
+    this.initialize = function () {
+        this.bindElements();
+    };
+
+    this.bindElements = function () {
+        var bindClass = $(".header");
+
+        bindClass.bind("click", this.toggleFile);
+    };
+
+    this.toggleFile = function (event) {
+        var holder = $('#'+event.target.id+'Diff');
+
+        if (holder.data('collapsed') == 0) {
+            holder.slideUp();
+            holder.data('collapsed', 1);
+        } else {
+            holder.slideDown();
+            holder.data('collapsed', 0);
+        }
+    };
+
+    return this.initialize();
+};
+
 $(function () {
     var branchPopUp = new BranchPopUp();
+    var branchFileToggle = new BranchFileToggle();
 });

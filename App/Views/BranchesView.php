@@ -9,9 +9,9 @@ class BranchesView {
 
     public $title = 'Branches - ';
     public $css = array();
-    public $js = array('branchPopUp');
+    public $js = array('branches');
     public $options = array(
-        'menuOut' => true,
+        'menuOut' => false,
         'menuCurrent' => '');
 
     private $route = null;
