@@ -33,6 +33,7 @@ class MenuController {
     private function buildTopButtons () {
         $topButtons = array (
             (object) array('value' => '/', 'name' => 'Home'),
+            (object) array('value' => '/settings', 'name' => 'Settings'),
         );
 
         $buttons = '';

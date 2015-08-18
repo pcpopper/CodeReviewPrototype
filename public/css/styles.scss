@@ -74,6 +74,7 @@ body {
       text-decoration: none;
       width: $menu-width - 25;
       height: 23px;
+      margin-top: 2px;
     }
     .btn:hover {
       background: #3cb0fd;
@@ -86,7 +87,7 @@ body {
       cursor: pointer;
     }
     .btn.child {
-      font-size: 10px;
+      font-size: 12px;
       padding-left: 30px !important;
       width: $menu-width - 35;
     }
@@ -135,7 +136,7 @@ body {
   #content {
     width: 100%;
 
-    #branchName {
+    #title {
       width: 100%;
       background-color: #37a0e6;
       text-align: center;
@@ -156,7 +157,7 @@ body {
 
       #box {
 
-        .diffHolder {
+        .holder {
           background-color: white;
           width: 100%;
           overflow-x: scroll;
@@ -220,6 +221,17 @@ body {
             border-right: 1px solid #5C5C5C;
             padding-right: 4px;
             padding-left: 5px;
+          }
+          .settingsInfo {
+            padding-left: 5px;
+            width: 50%;
+          }
+          .settingsRow {
+            border-bottom-style: ridge;
+            border-bottom-width: 2px;
+          }
+          .settingsSave {
+            text-align: center;
           }
           .sub {
             background-color: #ffecec;

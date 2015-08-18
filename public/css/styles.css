@@ -50,7 +50,8 @@ body {
       padding: 5px 5px 5px 20px;
       text-decoration: none;
       width: 185px;
-      height: 23px; }
+      height: 23px;
+      margin-top: 2px; }
     #menu #wrapper .btn:hover {
       background: #3cb0fd;
       background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
@@ -61,7 +62,7 @@ body {
       text-decoration: none;
       cursor: pointer; }
     #menu #wrapper .btn.child {
-      font-size: 10px;
+      font-size: 12px;
       padding-left: 30px !important;
       width: 175px; }
     #menu #wrapper .btn.current {
@@ -100,7 +101,7 @@ body {
   transition: padding 1s; }
   #pageWrapper #content {
     width: 100%; }
-    #pageWrapper #content #branchName {
+    #pageWrapper #content #title {
       width: 100%;
       background-color: #37a0e6;
       text-align: center;
@@ -116,13 +117,13 @@ body {
       border-width: 0 2px 2px 2px;
       height: 75%;
       background-color: white; }
-      #pageWrapper #content #collector #box .diffHolder {
+      #pageWrapper #content #collector #box .holder {
         background-color: white;
         width: 100%;
         overflow-x: scroll; }
-        #pageWrapper #content #collector #box .diffHolder table, #pageWrapper #content #collector #box .diffHolder tr, #pageWrapper #content #collector #box .diffHolder td {
+        #pageWrapper #content #collector #box .holder table, #pageWrapper #content #collector #box .holder tr, #pageWrapper #content #collector #box .holder td {
           border-collapse: collapse; }
-        #pageWrapper #content #collector #box .diffHolder table {
+        #pageWrapper #content #collector #box .holder table {
           width: 100%;
           -webkit-user-select: none;
           /* Chrome/Safari */
@@ -131,55 +132,63 @@ body {
           -ms-user-select: none;
           /* IE10+ */
           cursor: default; }
-        #pageWrapper #content #collector #box .diffHolder td {
+        #pageWrapper #content #collector #box .holder td {
           padding: 2px;
           font-family: "Times New Roman", Times, serif;
           font-size: 12pt; }
-        #pageWrapper #content #collector #box .diffHolder .add {
+        #pageWrapper #content #collector #box .holder .add {
           background-color: #dbffdb; }
-        #pageWrapper #content #collector #box .diffHolder .diffContent {
+        #pageWrapper #content #collector #box .holder .diffContent {
           white-space: pre;
           width: 100%;
           padding-right: 5px; }
-        #pageWrapper #content #collector #box .diffHolder .dividers {
+        #pageWrapper #content #collector #box .holder .dividers {
           width: 100%;
           height: 10px; }
-        #pageWrapper #content #collector #box .diffHolder .dividers.bottom {
+        #pageWrapper #content #collector #box .holder .dividers.bottom {
           background: linear-gradient(#5C5C5C 0%, transparent 0%), linear-gradient(135deg, #FFF 33.33%, transparent 33.33%) 0 0%, #FFF linear-gradient(45deg, #FFF 33.33%, #5C5C5C 33.33%) 0 0%;
           background: -webkit-linear-gradient(#5C5C5C 0%, transparent 0%), -webkit-linear-gradient(135deg, #FFF 33.33%, transparent 33.33%) 0 0%, #FFF -webkit-linear-gradient(45deg, #FFF 33.33%, #5C5C5C 33.33%) 0 0%;
           background: -o-linear-gradient(#5C5C5C 0%, transparent 0%), -o-linear-gradient(135deg, #FFF 33.33%, transparent 33.33%) 0 0%, #FFF -o-linear-gradient(45deg, #FFF 33.33%, #5C5C5C 33.33%) 0 0%;
           background: -moz-linear-gradient(#5C5C5C 0%, transparent 0%), -moz-linear-gradient(135deg, #FFF 33.33%, transparent 33.33%) 0 0%, #FFF -moz-linear-gradient(45deg, #FFF 33.33%, #5C5C5C 33.33%) 0 0%;
           background-repeat: repeat-x;
           background-size: 0px 100%, 9px 10px, 9px 10px; }
-        #pageWrapper #content #collector #box .diffHolder .dividers.spacer {
+        #pageWrapper #content #collector #box .holder .dividers.spacer {
           background-color: #5C5C5C; }
-        #pageWrapper #content #collector #box .diffHolder .dividers.top {
+        #pageWrapper #content #collector #box .holder .dividers.top {
           background: linear-gradient(#FFF 0%, transparent 0%), linear-gradient(135deg, #5C5C5C 33.33%, transparent 33.33%) 0 0%, #5C5C5C linear-gradient(45deg, #5C5C5C 33.33%, #FFF 33.33%) 0 0%;
           background: -webkit-linear-gradient(#FFF 0%, transparent 0%), -webkit-linear-gradient(135deg, #5C5C5C 33.33%, transparent 33.33%) 0 0%, #5C5C5C -webkit-linear-gradient(45deg, #5C5C5C 33.33%, #FFF 33.33%) 0 0%;
           background: -o-linear-gradient(#FFF 0%, transparent 0%), -o-linear-gradient(135deg, #5C5C5C 33.33%, transparent 33.33%) 0 0%, #5C5C5C -o-linear-gradient(45deg, #5C5C5C 33.33%, #FFF 33.33%) 0 0%;
           background: -moz-linear-gradient(#FFF 0%, transparent 0%), -moz-linear-gradient(135deg, #5C5C5C 33.33%, transparent 33.33%) 0 0%, #5C5C5C -moz-linear-gradient(45deg, #5C5C5C 33.33%, #FFF 33.33%) 0 0%;
           background-repeat: repeat-x;
           background-size: 0px 100%, 9px 10px, 9px 10px; }
-        #pageWrapper #content #collector #box .diffHolder .error {
+        #pageWrapper #content #collector #box .holder .error {
           background-color: #946565; }
-        #pageWrapper #content #collector #box .diffHolder .inlineError {
+        #pageWrapper #content #collector #box .holder .inlineError {
           background-color: orange;
           padding: 0 2px 2px 2px;
           border: 1px solid;
           border-left-color: white;
           border-top-color: white;
           margin: 0 1px 0 1px; }
-        #pageWrapper #content #collector #box .diffHolder .new {
+        #pageWrapper #content #collector #box .holder .new {
           color: black;
           border-right: 2px solid #5C5C5C;
           padding-right: 4px;
           padding-left: 4px; }
-        #pageWrapper #content #collector #box .diffHolder .old {
+        #pageWrapper #content #collector #box .holder .old {
           color: lightgray;
           border-right: 1px solid #5C5C5C;
           padding-right: 4px;
           padding-left: 5px; }
-        #pageWrapper #content #collector #box .diffHolder .sub {
+        #pageWrapper #content #collector #box .holder .settingsInfo {
+          padding-left: 5px;
+          width: 50%; }
+        #pageWrapper #content #collector #box .holder .settingsRow {
+          border-bottom-style: ridge;
+          border-bottom-width: 2px; }
+        #pageWrapper #content #collector #box .holder .settingsSave {
+          text-align: center; }
+        #pageWrapper #content #collector #box .holder .sub {
           background-color: #ffecec; }
       #pageWrapper #content #collector #box .header {
         width: 100%;
