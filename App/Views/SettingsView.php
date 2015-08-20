@@ -11,7 +11,7 @@ class SettingsView {
     public $css = array();
     public $js = array('settings');
     public $options = array(
-        'menuOut' => true,
+        'menuOut' => false,
         'menuCurrent' => 'Settings');
 
     private $route = null;

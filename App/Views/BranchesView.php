@@ -22,8 +22,9 @@ class BranchesView {
         $this->title .= implode('/', (array) $route->vars);
     }
 
-    public function renderBranch ($templatesController) {
+    public function renderBranch ($viewsController, $templatesController) {
         $branchesController = new BranchesController($templatesController, $this->route);
-        echo $branchesController->buildPage();
+        $page = $branchesController->buildPage();
+        $viewsController->renderPage($page);
     }
 }

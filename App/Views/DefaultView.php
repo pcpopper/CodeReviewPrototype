@@ -13,7 +13,8 @@ class DefaultView {
         'menuOut' => true,
         'menuCurrent' => 'Home');
 
-    public function renderLoremIpsum ($templatesController) {
-        echo $templatesController->getTemplate('LoremIpsum');
+    public function renderLoremIpsum ($viewsController, $templatesController) {
+        $page = $templatesController->getTemplate('LoremIpsum');
+        $viewsController->renderPage($page);
     }
 }
