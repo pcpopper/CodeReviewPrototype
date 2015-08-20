@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pcpopper
- * Date: 8/17/15
- * Time: 3:15 PM
- */
 
 namespace CodeReviewPrototype\App\Views;
 
@@ -24,11 +18,15 @@ class SettingsView {
 
     public function __construct ($route) {
         $this->route = $route;
-//        $this->title .= $route->vars;
     }
 
-    public function renderSettings ($templatesController) {
+    public function renderSettings ($viewsController, $templatesController) {
         $settingsController = new SettingsController($templatesController, $this->route);
-        echo $settingsController->buildPage();
+        $page = $settingsController->buildPage();
+        if (is_array($page) && $page[0] == 'json') {
+            $viewsController->renderJson($page);
+        } else {
+            $viewsController->renderPage($page);
+        }
     }
 }

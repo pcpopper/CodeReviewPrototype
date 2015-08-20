@@ -104,6 +104,7 @@ class MenuController {
         $current = (isset($branch->current) && $branch->current) ? $current : '';
 
         $child = (isset($branch->child) && $branch->child) ? ' child' : '';
+        $branchId = (isset($branch->child) && $branch->child) ? 'Branch' . ucfirst($branch->name) : ucfirst($branch->name);
         $parent = (isset($branch->parent) && $branch->parent) ? ' parent' : '';
         $value = (isset($branch->value) && $branch->value) ? " onclick=\"location.href='$branch->value'\"" : '';
 
@@ -112,7 +113,7 @@ class MenuController {
             'child'     => $child,
             'parent'    => $parent,
             'name'      => $branch->name,
-            'id'        => ucfirst($branch->name),
+            'id'        => $branchId,
             'link'      => $value,
         );
         $button = TemplatesController::replaceInTemplate($this->buttonTemplate, $replacements, '@@');

@@ -38,7 +38,7 @@ class Settings {
 
     private static function getSettings () {
         $filename = self::SETTINGS_FILE_PATH;
-        if (file_exists($filename)) {
+        if (file_exists($filename) && filesize($filename) > 0) {
             $handle = fopen($filename, "r");
             $contents = fread($handle, filesize($filename));
             fclose($handle);
@@ -52,12 +52,37 @@ class Settings {
             }
 
             return (object) $out;
-        } else {
-            throw new \Exception ("The dictionary could not be loaded.");
         }
     }
 
     private static function makeSetting ($settingsRaw, $name, $default) {
         return isset($settingsRaw->$name) ? $settingsRaw->$name : $default;
+    }
+
+    public static function saveSettings ($request) {
+        $filename = self::SETTINGS_FILE_PATH;
+        $lines = array();
+        $section = $request['section'];
+        if (file_exists($filename) && filesize($filename)) {
+            $handle = fopen($filename, "r");
+            $contents = fread($handle, filesize($filename));
+            fclose($handle);
+
+            $contents =  preg_replace("/$section.+\n/", "", $contents);
+            $lines = explode("\n", $contents);
+            array_pop($lines);
+        }
+
+        array_shift($request);
+
+        foreach ($request as $var => $value) {
+            $lines[] = "$section,$var,$value";
+        }
+
+        $handle = fopen($filename, "w");
+        fwrite($handle, implode("\n", $lines));
+        fclose($handle);
+
+        return array(1);
     }
 }

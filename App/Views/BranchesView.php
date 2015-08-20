@@ -12,13 +12,13 @@ class BranchesView {
     public $js = array('branches');
     public $options = array(
         'menuOut' => false,
-        'menuCurrent' => '');
+        'menuCurrent' => 'Branch');
 
     private $route = null;
 
     public function __construct ($route) {
         $this->route = $route;
-        $this->options['menuCurrent'] = (isset($route->vars->child) && $route->vars->child != '') ? $route->vars->child : $route->vars->parent;
+        $this->options['menuCurrent'] .= (isset($route->vars->child) && $route->vars->child != '') ? $route->vars->child : $route->vars->parent;
         $this->title .= implode('/', (array) $route->vars);
     }
 

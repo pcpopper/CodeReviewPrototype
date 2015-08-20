@@ -1,1 +1,2 @@
-bracketPlacement,false
+bool,bracketPlacement,true
+bool,phpVariableVariables,false

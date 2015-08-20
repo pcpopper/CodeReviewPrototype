@@ -18,17 +18,23 @@ class SettingsController {
     public function __construct ($templatesController, $route) {
         $this->templatesController = $templatesController;
         $this->route = $route;
-        $this->settings = Settings::setSettings();
     }
 
     public function buildPage () {
-        $this->getTemplates();
-        $groups = $this->buildGroups();
+        if (isset($this->route->vars->action)) {
+            $out = array('json', json_encode($this->saveSettings()));
+        } else {
+            $this->settings = Settings::setSettings();
+            $this->getTemplates();
+            $groups = $this->buildGroups();
 
-        $replacements = array(
-            'groups' => $groups,
-        );
-        return TemplatesController::replaceInTemplate($this->indexTemplate, $replacements);
+            $replacements = array(
+                'groups' => $groups,
+            );
+            $out = TemplatesController::replaceInTemplate($this->indexTemplate, $replacements);
+        }
+
+        return $out;
     }
 
     private function getTemplates () {
@@ -75,5 +81,9 @@ class SettingsController {
             $out .= TemplatesController::replaceInTemplate($this->settingsTemplate, $replacements);
         }
         return $out;
+    }
+
+    private function saveSettings () {
+        return Settings::saveSettings($_REQUEST);
     }
 }

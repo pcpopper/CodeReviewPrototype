@@ -16,14 +16,12 @@ class ViewsController {
     private $css                    = array('styles');
     private $js                     = array('jquery-2.1.4.min', 'menu');
 
-    public function renderPage ($route) {
+    public function renderSite ($route) {
         $this->templatesController = new TemplatesController();
         $this->htmlStart = $this->templatesController->getTemplate('HTMLStart');
 
         $this->getViewClass($route);
         $this->parseProperties();
-        $this->renderHTML();
-        $this->renderMenu();
         $this->runClassMethods();
         echo $this->templatesController->getTemplate('HTMLEnd');
     }
@@ -77,11 +75,21 @@ class ViewsController {
     }
 
     private function runClassMethods () {
-        echo '    <div id="pageWrapper">'.
-            '<div id="content">';
-
         foreach ($this->methods as $method) {
-            $this->viewClass->$method($this->templatesController);
+            $this->viewClass->$method($this, $this->templatesController);
         }
+    }
+
+    public function renderPage ($page) {
+        $this->renderHTML();
+        $this->renderMenu();
+
+        echo '    <div id="pageWrapper">' .
+            '<div id="content">' .
+            $page;
+    }
+
+    public function renderJson ($page) {
+        echo $page[1];
     }
 }

@@ -11,4 +11,4 @@ $routeController = new RouteController();
 $route = $routeController->getCurrentRoute();
 
 $viewsController = new ViewsController();
-$viewsController->renderPage($route);
+$viewsController->renderSite($route);
